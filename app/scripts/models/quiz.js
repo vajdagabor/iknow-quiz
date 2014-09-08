@@ -10,15 +10,17 @@ APP.model('Quiz', function () {
   // self.task = {};         // Details of the current task.
 
 
-  self.startNewGame = function () {
+  self.startNewGame = function (done) {
     if (!Array.isArray(self.sentences) || self.sentences.length < 1) {
       self._getSentences(function (data) {
         self._loadSentences(data.sentences);
         self.prepareGame();
+        done();
       });
 
     } else {
       self.prepareGame();
+      done();
     }
   };
 
