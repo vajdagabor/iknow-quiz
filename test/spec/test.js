@@ -151,6 +151,11 @@
       assert.equal(quiz.task.index, 1);
       assert.equal(quiz.task.sentence.words.join(' '), 'Could I have a receipt please?');
     });
+
+    it('guess() should return true if the answer is right and false if worng.', function () {
+      assert.isTrue(quiz.guess(['Could', 'I', 'have', 'a', 'receipt', 'please?']));
+      assert.isFalse(quiz.guess(['I', 'Could', 'have', 'a', 'receipt', 'please?']));
+    });
   });
 
 
