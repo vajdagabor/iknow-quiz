@@ -6,21 +6,42 @@ APP.model('Quiz', function () {
 
   var self = this;
   
-  self.attrs = { };
-  
-  // self.sentences = null;  // Storage for the loaded quiz sentences.
+  // self.sentences = [];    // Storage for the loaded quiz sentences.
+  // self.task = {};         // Details of the current task.
 
 
   self.startNewGame = function () {
     if (!Array.isArray(self.sentences) || self.sentences.length < 1) {
       self._getSentences(function (data) {
         self._loadSentences(data.sentences);
-        shuffleSentences();
+        self.prepareGame();
       });
 
     } else {
+      self.prepareGame();
+    }
+  };
+
+  self.prepareGame = function (dontShuffle) {
+    if (!dontShuffle) {
       shuffleSentences();
     }
+    self.task = {};
+    self.nextTask();
+  };
+
+  self.nextTask = function () {
+    if (self.task.index && self.task.index + 1 >= self.sentences.length) {
+      return false;
+    }
+    self.task.index = typeof self.task.index === 'undefined' ? 0 : self.task.index + 1;
+    self.task.sentence = self.sentences[ self.task.index ];
+    self.task.mixedWords = self.task.sentence.mixWords();
+    return true;
+  };
+
+  self.guess = function (words) {
+    return self.task.sentence.isOrderRight(words);
   };
 
   self._getSentences = function (callback) {

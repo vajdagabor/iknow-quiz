@@ -129,6 +129,28 @@
     });
 
     it('should be able to shuffle the loaded sentences');
+
+    it('should start a new game by calling startNewGame()');
+
+    it('prepareGame() should initialize the task object and set up the first task', function () {
+      quiz.prepareGame('dontShuffle');
+      assert(quiz.task, 'The task object doesn\'t exist');
+      assert.equal(quiz.task.index, 0, 'The sentence index should be zero at this point.');
+      assert.equal(quiz.task.sentence.words.join(' '), 'Here\'s your receipt.');
+    });
+
+    it('nextTask() should set the task object to point to the next sentence', function () {
+      quiz.nextTask();
+      assert.equal(quiz.task.index, 1);
+      assert.equal(quiz.task.sentence.words.join(' '), 'Could I have a receipt please?');
+    });
+
+    it('nextTask() should return false if there are no more tasks', function () {
+      // Here we should stand on the last sentence.
+      assert.isFalse(quiz.nextTask());
+      assert.equal(quiz.task.index, 1);
+      assert.equal(quiz.task.sentence.words.join(' '), 'Could I have a receipt please?');
+    });
   });
 
 

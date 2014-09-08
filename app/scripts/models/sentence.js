@@ -10,7 +10,7 @@ APP.model('Sentence', function (attrs) {
 
   self.attrs = { };
   
-  // self.words = null;
+  // self.words = undefined;
 
 
   function init () {
