@@ -9,7 +9,6 @@
     this.config      = options.config || {};
     this.controllers = {};
     this.models      = {};
-    this.ui          = {};
     this.helpers     = {};
 
     this.controller = function (name, fn) {
@@ -18,10 +17,6 @@
 
     this.model = function (name, fn) {
       this.models[name] = fn;
-    };
-
-    this.ui = function (name, fn) {
-      this.ui[name] = fn;
     };
 
     this.helper = function (name, obj) {
