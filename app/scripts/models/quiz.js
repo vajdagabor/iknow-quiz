@@ -33,14 +33,16 @@ APP.model('Quiz', function () {
   };
 
   self.nextTask = function () {
-    if (self.task.index && self.task.index + 1 >= self.sentences.length) {
-      return false;
+    if ((typeof self.task.index === 'undefined') ||
+        (self.task.index + 1 >= self.sentences.length))
+    {
+      self.task.index = 0;
+    } else {
+      self.task.index++;
     }
-    self.task.index = typeof self.task.index === 'undefined' ? 0 : self.task.index + 1;
     self.task.sentence = self.sentences[ self.task.index ];
     self.task.mixedWords = self.task.sentence.mixWords();
     self.task.myGuess = [];
-    return true;
   };
 
   self.guess = function (words) {

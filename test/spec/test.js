@@ -145,16 +145,16 @@
       assert.equal(quiz.task.sentence.words.join(' '), 'Could I have a receipt please?');
     });
 
-    it('nextTask() should return false if there are no more tasks', function () {
+    it('nextTask() should pick up the first task again if there are no more tasks', function () {
       // Here we should stand on the last sentence.
-      assert.isFalse(quiz.nextTask());
-      assert.equal(quiz.task.index, 1);
-      assert.equal(quiz.task.sentence.words.join(' '), 'Could I have a receipt please?');
+      quiz.nextTask();
+      assert.equal(quiz.task.index, 0);
+      assert.equal(quiz.task.sentence.words.join(' '), 'Here\'s your receipt.');
     });
 
     it('guess() should return true if the answer is right and false if worng.', function () {
-      assert.isTrue(quiz.guess(['Could', 'I', 'have', 'a', 'receipt', 'please?']));
-      assert.isFalse(quiz.guess(['I', 'Could', 'have', 'a', 'receipt', 'please?']));
+      assert.isTrue(quiz.guess(['Here\'s', 'your', 'receipt.']));
+      assert.isFalse(quiz.guess(['Here\'s', 'receipt.', 'your']));
     });
   });
 
