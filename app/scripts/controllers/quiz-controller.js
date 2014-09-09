@@ -53,11 +53,21 @@ APP.controller('Quiz', function () {
                                   .addClass('sentence-word-available');
   }
 
+  function message (text, messageType) {
+    var el = $('<div class="message-' + messageType + '">' + text + '</div>');
+    $('.message-container').html(el);
+    setTimeout(function () {
+      el.fadeOut(500, function () {
+        el.remove();
+      })
+    }, 1200);
+  }
+
   function guess () {
     if (self.quiz.guess()) {
-      console.log('Yeah!');
+      message('Awesome!', 'success');
     } else {
-      console.log('Nope.');
+      message('Nope.', 'fail');
     }
   }
 

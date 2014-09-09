@@ -1,0 +1,41 @@
+@keyframes zoomout
+  0%
+    transform: scale(5)
+    opacity: 0
+  100%
+    transform: scale(1)
+    opacity: .9
+
+
+.message-container
+  position: absolute
+  left: 0
+  right: 0
+  top: 50%
+  margin-top: -150px
+  text-align: center
+
+%message
+  opacity: .9
+  display: inline-block
+  border-radius: 50%
+  width: 300px
+  line-height: 300px
+  max-width: 300px
+  color: white
+  vertical-align: middle
+  font:
+    size: 48px
+    weight: bold
+  white-space: nowrap
+  animation:
+    name: zoomout
+    duration: .5s
+
+.message-success
+  @extend %message
+  background-color: $c-green
+
+.message-fail
+  @extend %message
+  background-color: $c-red
