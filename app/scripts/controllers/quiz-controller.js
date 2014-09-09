@@ -13,11 +13,17 @@ APP.controller('Quiz', function () {
     $('#mixed_sentence_container').on('click', '.sentence-word-available', addWord);
     $('#solved_sentence_container').on('click', '.sentence-word', removeWord);
     $('#submit').on('click', guess);
+    $('#reveal').on('click', reveal);
   };
 
   function showTask () {
     clearScreen();
     showMixedWords();
+  }
+
+  function nextTask () {
+    self.quiz.nextTask();
+    showTask();
   }
 
   function clearScreen () {
@@ -74,13 +80,22 @@ APP.controller('Quiz', function () {
 
   function guess () {
     if (self.quiz.guess()) {
-      message('Awesome!', 'success', function () {
-        self.quiz.nextTask();
-        showTask();
+      message('Correct.', 'success', function () {
+        nextTask();
       });
     } else {
-      message('Nope.', 'fail');
+      message('Oops. No.', 'fail');
     }
+  }
+
+  function reveal () {
+    $('#solved_sentence_container').html(self.quiz.task.sentence.words.join(' '));
+    $('#mixed_sentence_container .sentence-word').each(function (index, el) {
+      $(el).removeClass('sentence-word-available').addClass('sentence-word-disabled');
+    });
+    setTimeout(function () {
+      nextTask();
+    }, 5000);
   }
 
 });
