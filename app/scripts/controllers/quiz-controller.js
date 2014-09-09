@@ -11,6 +11,7 @@ APP.controller('Quiz', function () {
     self.quiz.startNewGame(round);
 
     $('#mixed_sentence_container').on('click', '.sentence-word-available', addWord);
+    $('#solved_sentence_container').on('click', '.sentence-word', removeWord);
     $('#submit').on('click', guess);
   };
 
@@ -18,26 +19,36 @@ APP.controller('Quiz', function () {
     showMixedWords();
   }
 
-  function wordTemplate (word, isAvailable) {
+  function wordTemplate (word, id, isAvailable) {
     var classes = ['sentence-word'];
     classes.push(isAvailable && ('sentence-word-available'));
-    return '<div class="' + classes.join(' ') +'">' + word + '</div>';
+    return '<div class="' + classes.join(' ') +'" data-id="' + id + '">' + word + '</div>';
   }
 
   function showMixedWords () {
     var mixedWords = self.quiz.task.mixedWords;
-    var wordsHTML = $.map(mixedWords, function (word) {
-                      return wordTemplate(word, 'available');
+    var wordsHTML = $.map(mixedWords, function (word, index) {
+                      return wordTemplate(word, index, 'available');
                     }).join('\n');
     $('#mixed_sentence_container').html(wordsHTML);
   }
 
   function addWord () {
     var word = $(this).text();
+    var id = $(this).data('id');
     self.quiz.task.myGuess.push(word);
     $(this).removeClass('sentence-word-available')
            .addClass('sentence-word-disabled');
-    $('#solved_sentence_container').append(wordTemplate(word) + '\n');
+    $('#solved_sentence_container').append(wordTemplate(word, id) + '\n');
+  }
+
+  function removeWord () {
+    var id = $(this).data('id');
+    console.log(id);
+    $(this).remove();
+    $('#mixed_sentence_container').find('.sentence-word[data-id="' + id + '"]')
+                                  .removeClass('sentence-word-disabled')
+                                  .addClass('sentence-word-available');
   }
 
   function guess () {
