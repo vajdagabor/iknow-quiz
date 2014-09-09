@@ -14,10 +14,11 @@ APP.controller('Quiz', function () {
     $('#solved_sentence_container').on('click', '.sentence-word', removeWord);
     $('#submit').on('click', guess);
     $('#reveal').on('click', reveal);
+    $('#next').on('click', nextTask);
   };
 
   function showTask () {
-    clearScreen();
+    resetScreen();
     showMixedWords();
   }
 
@@ -26,9 +27,11 @@ APP.controller('Quiz', function () {
     showTask();
   }
 
-  function clearScreen () {
+  function resetScreen () {
     $('#solved_sentence_container').empty();
     $('#mixed_sentence_container').empty();
+    $('#next').hide();
+    $('#submit').show();
   }
 
   function showMixedWords () {
@@ -93,9 +96,8 @@ APP.controller('Quiz', function () {
     $('#mixed_sentence_container .sentence-word').each(function (index, el) {
       $(el).removeClass('sentence-word-available').addClass('sentence-word-disabled');
     });
-    setTimeout(function () {
-      nextTask();
-    }, 5000);
+    $('#submit').hide();
+    $('#next').show();
   }
 
 });
