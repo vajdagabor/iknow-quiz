@@ -2,7 +2,7 @@
 
   'use strict';
   
-  window.LazyApp = function lazyApp (options) {
+  window.Lightframe = function Lightframe (options) {
 
     options = options || {};
 

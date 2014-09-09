@@ -1,13 +1,13 @@
 // Initializing the application
 // ============================
 
-/* global LazyApp */
+/* global Lightframe */
 
 (function (window) {
 
   'use strict';
 
-  window.APP = new LazyApp({
+  window.APP = new Lightframe({
     config: {
       apiEndpoint: 'http://api.iknow.jp/goals/691021/sentences.json'
     }

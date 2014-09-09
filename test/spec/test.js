@@ -1,4 +1,4 @@
-/* global describe, it, xit, assert, LazyApp, APP */
+/* global describe, it, xit, assert, Lightframe, APP */
 
 (function () {
 
@@ -66,12 +66,12 @@
       assert($, 'jQuery is not present');
     });
 
-    it('Lazy App should be present', function () {
-      assert(LazyApp, 'LazyApp is not present');
+    it('Lightframe should be present', function () {
+      assert(Lightframe, 'Lightframe is not present');
     });
 
-    it('the global APP variable should be a LazyApp instance', function () {
-      assert(APP instanceof LazyApp, 'APP is not a LazyApp instance');
+    it('the global APP variable should be a Lightframe instance', function () {
+      assert(APP instanceof Lightframe, 'APP is not a Lightframe instance');
     });
 
   });
