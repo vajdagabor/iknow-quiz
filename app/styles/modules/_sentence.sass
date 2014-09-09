@@ -1,10 +1,32 @@
 $hover-color: tint($c-blue, 20%)
 
-.sentence-container
+%sentence-container
+  display: inline-block
+  width: 100%
   text-align: center
   font-size: 24px
   line-height: 1.6
   user-select: none
+
+.sentence-container-solved-wrapper
+  line-height: 6em
+  padding-bottom: 10px
+  margin-bottom: 10px
+  border-bottom: 2px solid white
+
+.sentence-container-mixed-wrapper
+  line-height: 6em
+
+.sentence-container-solved
+  @extend %sentence-container
+  vertical-align: bottom
+
+  .sentence-word
+    line-height: normal
+
+.sentence-container-mixed
+  @extend %sentence-container
+  vertical-align: top
 
 .sentence-word
   display: inline-block
@@ -17,11 +39,6 @@ $hover-color: tint($c-blue, 20%)
   &:hover
     background-color: $hover-color
     transition: background-color 0
-
-.sentence-container-solved
-  @extend .sentence-container
-  margin-bottom: 20px
-  border-bottom: 2px solid white
 
 .sentence-word-disabled
   color: $c-blue
