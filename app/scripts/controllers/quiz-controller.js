@@ -8,21 +8,21 @@ APP.controller('Quiz', function () {
 
   self.init = function () {
     self.quiz = new APP.models.Quiz();
-    self.quiz.startNewGame(round);
+    self.quiz.startNewGame(showTask);
 
     $('#mixed_sentence_container').on('click', '.sentence-word-available', addWord);
     $('#solved_sentence_container').on('click', '.sentence-word', removeWord);
     $('#submit').on('click', guess);
   };
 
-  function round () {
+  function showTask () {
+    clearScreen();
     showMixedWords();
   }
 
-  function wordTemplate (word, id, isAvailable) {
-    var classes = ['sentence-word'];
-    classes.push(isAvailable && ('sentence-word-available'));
-    return '<div class="' + classes.join(' ') +'" data-id="' + id + '">' + word + '</div>';
+  function clearScreen () {
+    $('#solved_sentence_container').empty();
+    $('#mixed_sentence_container').empty();
   }
 
   function showMixedWords () {
@@ -31,6 +31,12 @@ APP.controller('Quiz', function () {
                       return wordTemplate(word, index, 'available');
                     }).join('\n');
     $('#mixed_sentence_container').html(wordsHTML);
+  }
+
+  function wordTemplate (word, id, isAvailable) {
+    var classes = ['sentence-word'];
+    classes.push(isAvailable && ('sentence-word-available'));
+    return '<div class="' + classes.join(' ') +'" data-id="' + id + '">' + word + '</div>';
   }
 
   function addWord () {
@@ -53,19 +59,25 @@ APP.controller('Quiz', function () {
                                   .addClass('sentence-word-available');
   }
 
-  function message (text, messageType) {
+  function message (text, messageType, callback) {
     var el = $('<div class="message-' + messageType + '">' + text + '</div>');
     $('.message-container').html(el);
     setTimeout(function () {
       el.fadeOut(500, function () {
         el.remove();
-      })
+        if (callback) {
+          callback();
+        }
+      });
     }, 1200);
   }
 
   function guess () {
     if (self.quiz.guess()) {
-      message('Awesome!', 'success');
+      message('Awesome!', 'success', function () {
+        self.quiz.nextTask();
+        showTask();
+      });
     } else {
       message('Nope.', 'fail');
     }
