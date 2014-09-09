@@ -25,12 +25,14 @@
         <div id="solved_sentence_container" class="sentence-container-solved"></div>
       </div>
       <div class="sentence-container-mixed-wrapper">
-        <div id="mixed_sentence_container" class="sentence-container-mixed"></div>
+        <div id="mixed_sentence_container" class="sentence-container-mixed">
+          <span class="loading">Loading the quiz data…</span>
+        </div>
       </div>
       <div class="message-container"></div>
-      <button id="reveal" class="button-light">What's the solution?</button>
+      <button id="reveal" class="button-light" style="display: none">What's the solution?</button>
       <button id="next" class="button-next">Next</button>
-      <button id="submit" class="button-submit">Check</button>
+      <button id="submit" class="button-submit" disabled>Check</button>
     </div>
 
     
@@ -40,8 +42,10 @@
     <!-- endbower -->
     <!-- endbuild -->
 
-    <!-- build:js({app,.tmp}) scripts/main.js -->
-    <script src="scripts/data/sentences.js"></script>
+    <!-- Uncomment the followin line to test the app offline -->
+    <!-- <script src="scripts/data/sentences.js"></script> -->
+
+    <!-- build:js({app,.tmp}) scripts/main.js -->    
     <script src="scripts/lightframe.js"></script>
     <script src="scripts/main.js"></script>
     <script src="scripts/helpers/quiz-helper.js"></script>

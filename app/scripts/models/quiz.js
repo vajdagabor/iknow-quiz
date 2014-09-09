@@ -50,9 +50,12 @@ APP.model('Quiz', function () {
   };
 
   self._getSentences = function (callback) {
-    // So we can test the app without network connection
-    if (localSentences) {
-      callback(localSentences);
+    /* If this variable present and contains the sentences in the same format
+     * what the API provides, then we can test the app without
+     * network connection.
+     */
+    if (window.localSentences) {
+      callback(window.localSentences);
 
     } else {
       $.ajax({

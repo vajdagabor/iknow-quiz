@@ -32,9 +32,7 @@ APP.controller('Quiz', function () {
     $('#mixed_sentence_container').empty();
     disableButton();
     hideNextButton();
-    setTimeout(function () {
-      $('#reveal').show();
-    }, 1000);
+    $('#reveal').show();
   }
 
   function showMixedWords () {
