@@ -12,10 +12,16 @@
   position: absolute
   bottom: -1.7em
   left: 0
-  background-color: transparent
-  box-shadow: none
-  border: none
-  outline: none
   padding: 0
   margin: 0
-  border-bottom: 1px solid white
+  border: none
+  border-bottom: 1px solid tint($c-blue, 50%)
+  box-shadow: none
+  outline: none
+  background-color: transparent
+  color: tint($c-blue, 50%)
+  transition: all .2s
+
+  &:hover
+    color: white
+    border-color: white

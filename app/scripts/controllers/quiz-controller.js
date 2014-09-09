@@ -30,8 +30,11 @@ APP.controller('Quiz', function () {
   function resetScreen () {
     $('#solved_sentence_container').empty();
     $('#mixed_sentence_container').empty();
-    $('#next').hide();
-    $('#submit').show();
+    disableButton();
+    hideNextButton();
+    setTimeout(function () {
+      $('#reveal').show();
+    }, 1000);
   }
 
   function showMixedWords () {
@@ -55,6 +58,9 @@ APP.controller('Quiz', function () {
     $(this).removeClass('sentence-word-available')
            .addClass('sentence-word-disabled');
     $('#solved_sentence_container').append(wordTemplate(word, id) + '\n');
+    if ($('#mixed_sentence_container .sentence-word-available').length === 0) {
+      enableButton();
+    }
   }
 
   function removeWord () {
@@ -66,6 +72,7 @@ APP.controller('Quiz', function () {
     $('#mixed_sentence_container').find('.sentence-word[data-id="' + id + '"]')
                                   .removeClass('sentence-word-disabled')
                                   .addClass('sentence-word-available');
+    disableButton();
   }
 
   function message (text, messageType, callback) {
@@ -82,13 +89,35 @@ APP.controller('Quiz', function () {
   }
 
   function guess () {
+    disableButton();
     if (self.quiz.guess()) {
+      $('#reveal').hide();
       message('Correct.', 'success', function () {
-        nextTask();
+        showNextButton();
       });
     } else {
-      message('Oops. No.', 'fail');
+      message('Oops. No.', 'fail', function () {
+        enableButton();
+      });
     }
+  }
+
+  function disableButton () {
+    $('#submit').prop('disabled', true);
+  }
+
+  function enableButton () {
+    $('#submit').prop('disabled', false);
+  }
+
+  function showNextButton () {
+    $('#submit').hide();
+    $('#next').show();
+  }
+
+  function hideNextButton () {
+    $('#next').hide();
+    $('#submit').show();
   }
 
   function reveal () {
@@ -96,8 +125,7 @@ APP.controller('Quiz', function () {
     $('#mixed_sentence_container .sentence-word').each(function (index, el) {
       $(el).removeClass('sentence-word-available').addClass('sentence-word-disabled');
     });
-    $('#submit').hide();
-    $('#next').show();
+    showNextButton();
   }
 
 });
