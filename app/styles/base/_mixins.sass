@@ -7,6 +7,17 @@
   color: white
   font-weight: bold
   white-space: nowrap
+  background-clip: padding-box
 
   &:disabled
     opacity: .3
+
+    &:hover
+      background-color: $c-orange
+
+  &:hover
+    background-color: tint($c-orange, 20%)
+
+  &:active
+    border-bottom: 0
+    border-top: 2px solid transparent
