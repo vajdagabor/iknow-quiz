@@ -39,24 +39,31 @@ APP.model('Quiz', function () {
     self.task.index = typeof self.task.index === 'undefined' ? 0 : self.task.index + 1;
     self.task.sentence = self.sentences[ self.task.index ];
     self.task.mixedWords = self.task.sentence.mixWords();
+    self.task.myGuess = [];
     return true;
   };
 
   self.guess = function (words) {
-    return self.task.sentence.isOrderRight(words);
+    return self.task.sentence.isOrderRight(words || self.task.myGuess);
   };
 
   self._getSentences = function (callback) {
-    $.ajax({
-      url: APP.config.apiEndpoint,
-      dataType: 'jsonp'
-    
-    }).done(function (data) {
-      callback(data);
-    
-    }).fail(function (jqXHR, textStatus, errorThrown) {
-      throw('Oops. Couldn\'t get the sentences: ' + errorThrown + '  (' + textStatus + ')');
-    });
+    // So we can test the app without network connection
+    if (localSentences) {
+      callback(localSentences);
+
+    } else {
+      $.ajax({
+        url: APP.config.apiEndpoint,
+        dataType: 'jsonp'
+      
+      }).done(function (data) {
+        callback(data);
+      
+      }).fail(function (jqXHR, textStatus, errorThrown) {
+        throw('Oops. Couldn\'t get the sentences: ' + errorThrown + '  (' + textStatus + ')');
+      });
+    }
   };
 
   self._loadSentences = function (sentences) {

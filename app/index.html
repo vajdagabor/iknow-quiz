@@ -21,8 +21,9 @@
     
     <div class="app-container">
       <div class="logo">iKnow!</div>
+      <div id="solved_sentence_container" class="sentence-container-solved"></div>
       <div id="mixed_sentence_container" class="sentence-container"></div>
-      <button class="js-submit submit">Done</button>
+      <button id="submit" class="js-submit submit">Done</button>
     </div>
 
     
@@ -33,6 +34,7 @@
     <!-- endbuild -->
 
     <!-- build:js({app,.tmp}) scripts/main.js -->
+    <script src="scripts/data/sentences.js"></script>
     <script src="scripts/lazy-app.js"></script>
     <script src="scripts/main.js"></script>
     <script src="scripts/helpers/quiz-helper.js"></script>
