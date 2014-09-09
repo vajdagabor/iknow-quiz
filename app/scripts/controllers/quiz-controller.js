@@ -43,9 +43,11 @@ APP.controller('Quiz', function () {
   }
 
   function removeWord () {
-    var id = $(this).data('id');
-    console.log(id);
-    $(this).remove();
+    var el = $(this);
+    var id = el.data('id');
+    var index = $('#solved_sentence_container .sentence-word').index(el);
+    self.quiz.task.myGuess.splice(index, 1);
+    el.remove();
     $('#mixed_sentence_container').find('.sentence-word[data-id="' + id + '"]')
                                   .removeClass('sentence-word-disabled')
                                   .addClass('sentence-word-available');
