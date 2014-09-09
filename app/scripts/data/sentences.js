@@ -1,3 +1,5 @@
+// jshint ignore:start
+
 window.localSentences = {
   sentences:[  
     {  
@@ -673,3 +675,5 @@ window.localSentences = {
     }
   ]
 }
+
+// jshint ignore:end

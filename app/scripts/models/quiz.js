@@ -1,4 +1,4 @@
-/* global APP */
+/* global APP, localSentences */
 
 APP.model('Quiz', function () {
   

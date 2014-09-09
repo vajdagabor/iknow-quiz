@@ -16,3 +16,15 @@ $hover-color: tint($c-blue, 20%)
   &:hover
     background-color: $hover-color
     transition: background-color 0
+
+.sentence-container-solved
+  @extend .sentence-container
+  margin-bottom: 20px
+  border-bottom: 2px solid white
+
+.sentence-word-disabled
+  color: $c-blue
+  cursor: default
+
+  &:hover
+    background-color: transparent
